@@ -4,6 +4,10 @@ public class Main {
 		//create data class Input and assign the candidate
 		Input in = new Input(args[0]);
 
+		System.out.println(in.getCandidate());
+		System.out.println(in.getInputIp());
+		System.out.println(in.getInputMask());
+
 		//Instances of computing classes
 		//validator, calculator and parser
 		
