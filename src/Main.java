@@ -12,16 +12,13 @@ public class Main {
 		//Instances of computing classes
 		//validator, calculator and parser
 		Validator v = new Validator();
+		Calculator c = new Calculator();
+
+		//Pass Input to validator, get Validated Data and pass it to Calculator
 		ValidatedData valid = v.validateInput(in);
-		System.out.println(valid.getValidIp());
-		System.out.println(valid.getValidMask());
-
-		//Pass Input to validator
-		//get Validated Data and pass it to Calculator
 		//return Results and print'em
-		//For now, just to test thing are going ok, lets create a Results object, populate it with bullshit and print
-
-
+		Results r = c.calculate(valid);
+		displayResults(r);
 	}
 
 	private static void displayResults(Results r){
