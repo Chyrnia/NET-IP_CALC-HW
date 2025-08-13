@@ -2,28 +2,24 @@ public class Main {
 
 	public static void main(String[] args){
 		//create data class Input and assign the candidate
-		Input in = new Input(args[0]);
-
-		System.out.println(in.getCandidate());
-		System.out.println(in.getInputIp());
-		System.out.println(in.getInputMask());
+		Input in = null;
+		if(args.length != 1){
+			System.out.println("ERROR: Not enough arguments.");
+			System.exit(1);
+		}	
+		in = new Input(args[0]);
 
 		//Instances of computing classes
 		//validator, calculator and parser
-		
-		//Do the work
-		//First pass Input object to parser
-		//Then pass it to validator
+		Validator v = new Validator();
+		ValidatedData valid = v.validateInput(in);
+		System.out.println(valid.getValidIp());
+		System.out.println(valid.getValidMask());
+
+		//Pass Input to validator
 		//get Validated Data and pass it to Calculator
 		//return Results and print'em
 		//For now, just to test thing are going ok, lets create a Results object, populate it with bullshit and print
-
-		Results out = new Results();
-		out.setValidatedIp("192.168.1.108");
-		out.setNetworkIp("192.168.1.0");
-		out.setBroadcastIp("192.168.1.255");
-		
-		displayResults(out);
 
 
 	}
@@ -34,6 +30,5 @@ public class Main {
 				r.getValidatedIp(), r.getNetworkIp(), r.getBroadcastIp());
 	}
 
-	//Private attributes
 
 }
