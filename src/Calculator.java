@@ -22,10 +22,15 @@ public class Calculator extends BinaryStringManipulator {
 		for(int i = 0; i < networkOctets.length; i++){
 			broadcastOctets[i] = super.bitwiseOrOctets(networkOctets[i], super.invertOctet(maskOctets[i]));
 		}
+		r.setBinaryIp(String.join(".",ipOctets));
+		r.setBinaryMask(String.join(".",maskOctets));
+		r.setBinaryNet(String.join(".",networkOctets));
+		r.setBinaryBroad(String.join(".",broadcastOctets));
 
 		r.setValidatedIp(valid.getValidIp());
-		r.setNetworkIp(super.getNumericIp(String.join(".",networkOctets)));
-		r.setBroadcastIp(super.getNumericIp(String.join(".",broadcastOctets)));
+		r.setValidatedMask(valid.getValidMask());
+		r.setNetworkIp(super.getNumericIp(r.getBinaryNet()));
+		r.setBroadcastIp(super.getNumericIp(r.getBinaryBroad()));
 
 		return r;
 	}

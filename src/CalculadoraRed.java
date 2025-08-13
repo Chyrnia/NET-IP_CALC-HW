@@ -23,8 +23,8 @@ public class CalculadoraRed {
 
 	private static void displayResults(Results r){
 		//prints the product of our incesant toiling
-		System.out.printf("Original IP : %s\nNetwork IP: %s\nBroadcast IP: %s\n",
-				r.getValidatedIp(), r.getNetworkIp(), r.getBroadcastIp());
+		System.out.printf("Original IP: %s\nBinary IP: %s\nOriginal Mask: %s\nBinary Mask: %s\nNetwork IP: %s\nBinary Network IP: %s\nBroadcast IP: %s\nBinary Broadcast IP: %s\n",
+				r.getValidatedIp(), r.getBinaryIp(), r.getValidatedMask(), r.getBinaryMask(), r.getNetworkIp(), r.getBinaryNet(), r.getBroadcastIp(), r.getBinaryBroad());
 	}
 
 
