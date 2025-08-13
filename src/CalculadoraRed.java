@@ -1,4 +1,4 @@
-public class Main {
+public class CalculadoraRed {
 
 	public static void main(String[] args){
 		//create data class Input and assign the candidate
