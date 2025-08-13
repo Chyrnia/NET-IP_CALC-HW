@@ -4,9 +4,8 @@
  * form /number or /number.number.number.number
  */
 import java.util.StringTokenizer;
-public class Validator {
+public class Validator extends BinaryStringManipulator {
     public Validator(){
-        this.tokenizer = null;
     }
 
     public ValidatedData validateInput(Input in){
@@ -50,25 +49,5 @@ public class Validator {
         return "ERROR";
     }
 
-    private String getIpInBinary(int[] chunks){
-        ZZ
-
-    }
-
-
-    private String getBinaryOctet(int ipChunk){
-        StringBuilder octet = new StringBuilder(Integer.getBinaryString(ipChunk));
-        while(octet.length() < 8){
-            octet.insert(0,0);  //this inserts a zero on the left until our binary representation has a length of 8
-        }
-        if(octet.length() > 8){
-            System.out.println("Error converting number to binary octet");
-        }
-        return octet.toString();
-    }
-            
-
-    //private data
-    private StringTokenizer tokenizer;
 
 }
