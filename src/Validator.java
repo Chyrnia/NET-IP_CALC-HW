@@ -3,7 +3,7 @@
  * and the mask are both valid, suitable for calculator to work on them. It can manage masks in the 
  * form /number or /number.number.number.number
  */
-public class Validator 
+public class Validator extends BinaryStringManipulator { 
 
 	public Validator(){
 	}
@@ -18,8 +18,6 @@ public class Validator
 		if(!validateIpForm(in.getInputIp())){
 			System.exit(5);
 		}
-
-		System.out.println("DEBUG: " + in.getInputIp());
 
 		v.setValidIp(in.getInputIp());
 
