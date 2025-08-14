@@ -2,9 +2,9 @@
  * This is the data class Results. It stores the final products of our program so they can be more easily referenced,
  */
 
-public class Results {
+public class ResultsData {
 
-	public Results(){
+	public ResultsData(){
 		this.validatedIp = null;
 		this.networkIp = null;
 		this.broadcastIp = null;	
@@ -31,7 +31,7 @@ public class Results {
 	}
 
 	public String getBinaryMask(){
-		return binaryIp;
+		return binaryMask;
 	}
 
 	public String getBinaryNet(){

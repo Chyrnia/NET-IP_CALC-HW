@@ -5,9 +5,9 @@
  */
 import java.util.StringTokenizer;
 
-public class Input {
+public class InputData {
 
-	public Input(String argument){
+	public InputData(String argument){
 		this.candidate = argument;
 		this.populateFields();
 	}
