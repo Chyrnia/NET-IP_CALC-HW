@@ -8,7 +8,7 @@ public class Validator extends BinaryStringManipulator {
 	public Validator(){
 	}
 
-	public ValidatedData validateInput(Input in){
+	public ValidatedData validateInput(InputData in){
 		//Create the data object
 		ValidatedData v = new ValidatedData();
 

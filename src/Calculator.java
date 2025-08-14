@@ -7,8 +7,8 @@ public class Calculator extends BinaryStringManipulator {
 	public Calculator(){
 	}
 
-	public Results calculate(ValidatedData valid){
-		Results r = new Results();
+	public ResultsData calculate(ValidatedData valid){
+		ResultsData r = new ResultsData();
 		String[] ipOctets = getBinaryIp(valid.getValidIp()).split("\\."); 
 		String[] maskOctets = getBinaryIp(valid.getValidMask()).split("\\."); 
 		String[] networkOctets = new String[4];
