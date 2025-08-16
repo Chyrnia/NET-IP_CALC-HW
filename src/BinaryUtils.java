@@ -5,12 +5,13 @@
 
 import java.util.StringTokenizer;
 
-public class BinaryStringManipulator {
+public final class BinaryUtils {
 
-	public BinaryStringManipulator(){
+	private BinaryUtils(){
+		throw new AssertionError("Not an instatiable class");
 	}
 
-    public String getBinaryOctet(int ipChunk){
+    public static String getBinaryOctet(int ipChunk){
         StringBuilder builder = new StringBuilder(Integer.toBinaryString(ipChunk));
         while(builder.length() < 8){
             builder.insert(0,0);  //this inserts a zero on the left until our binary representation has a length of 8
@@ -21,7 +22,7 @@ public class BinaryStringManipulator {
         return builder.toString();
     }
 
-	public String getBinaryIp(String strIp){
+	public static String getBinaryIp(String strIp){
 		StringBuilder builder = new StringBuilder(40);
 		StringTokenizer tokenizer = new StringTokenizer(strIp, ".");
 		int count = 0;
@@ -31,14 +32,14 @@ public class BinaryStringManipulator {
 				builder.append(".");
 			}
 
-			builder.append(this.getBinaryOctet(Integer.parseInt(tokenizer.nextToken())));
+			builder.append(getBinaryOctet(Integer.parseInt(tokenizer.nextToken())));
 			count++;
 		}
 
 		return builder.toString();
 	}
 
-	public String getNumericIp(String binStrIp){
+	public static String getNumericIp(String binStrIp){
 		StringBuilder builder = new StringBuilder(20);
 		StringTokenizer tokenizer = new StringTokenizer(binStrIp, ".");
 		int count = 0;
@@ -53,24 +54,24 @@ public class BinaryStringManipulator {
 		return builder.toString();
 	}
 
-	public String bitwiseAndOctets(String o1, String o2){
+	public static String bitwiseAndOctets(String o1, String o2){
 		int first = Integer.parseInt(o1,2);
 		int second = Integer.parseInt(o2,2);
-		return this.getBinaryOctet(first & second);
+		return getBinaryOctet(first & second);
 	}
 
-	public String bitwiseOrOctets(String o1, String o2){
+	public static String bitwiseOrOctets(String o1, String o2){
 		int first = Integer.parseInt(o1,2);
 		int second = Integer.parseInt(o2,2);
-		return this.getBinaryOctet(first|second);
+		return getBinaryOctet(first|second);
 	}
 
-	public String getLastOctet(String binStrIp){
+	public static String getLastOctet(String binStrIp){
 		return binStrIp.substring(27);
 	}
 
-	public String invertOctet(String octet){
+	public static String invertOctet(String octet){
 		int o = Integer.parseInt(octet, 2);
-		return this.getBinaryOctet(~o);
+		return getBinaryOctet(~o);
 	}
 }
