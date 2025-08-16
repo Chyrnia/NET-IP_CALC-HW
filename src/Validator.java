@@ -11,38 +11,36 @@ public class Validator extends BinaryStringManipulator {
 	public ValidatedData validateInput(InputData in){
 		//Create the data object
 		ValidatedData v = new ValidatedData();
-
-		//Input has two fields that we care about
-		//inputIp and inputMask
 		//ip is easy, we will check that it has the form of an IP address like this
 		if(!validateIpForm(in.getInputIp())){
 			System.exit(5);
 		}
-
 		v.setValidIp(in.getInputIp());
 
 		//the mask is almost the same but it might be in short or long form 
 		String longMask = null;
+		String binaryMask = null;
 
-		//if its short
-		if(in.getInputMask().length() == 2){
-			longMask = super.getNumericIp(constructBitMaskFromNumber(Integer.parseInt(in.getInputMask())));
-		}else{
-			//if it's long form
+		if(in.getInputMask().length() == 2){ //if its short
+			binaryMask = constructBitMaskFromNumber(Integer.parseInt(in.getInputMask()));
+			longMask = super.getNumericIp(binaryMask);
+		}else{ //if it's long form
 			longMask = in.getInputMask();
+			binaryMask = super.getBinaryIp(longMask);
 		}
 
-		//let's validate the form
-
+		//let's validate the mask
 		if(!validateIpForm(longMask)){
 			System.exit(6);
+		}else if(!validateMask(binaryMask)){
+			System.exit(7);
 		}
 
 		v.setValidMask(longMask);
 		return v;
 	}
 
-	public boolean validateIpForm(String rawIp){
+	private boolean validateIpForm(String rawIp){
 		//splits the given ip by the dots
 		String[] octets = rawIp.split("\\.");
 		//check if we have enough octets
@@ -67,7 +65,24 @@ public class Validator extends BinaryStringManipulator {
 		return true;
 	}
 
-	public String constructBitMaskFromNumber(int num){
+	private boolean validateMask(String mask){
+		char digit;
+		boolean prevWasZero = false;
+		for(int i = 0; i < mask.length(); i++){
+			digit = mask.charAt(i);
+			if(digit == '1' && prevWasZero){
+				System.out.println("The mask has gaps between 1's");
+				return false;
+			}
+			if(digit == '0') {
+				prevWasZero = true;
+				continue;
+			}
+		}
+		return true;
+	}
+
+	private String constructBitMaskFromNumber(int num){
 
 		StringBuilder mask = new StringBuilder(40);
 		if(num > 32 || num < 0){
