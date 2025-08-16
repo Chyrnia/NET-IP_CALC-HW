@@ -9,15 +9,11 @@ public class CalculadoraRed {
 		}	
 		in = new InputData(args[0]);
 
-		//Instances of computing classes
-		//validator, calculator and parser
-		Validator v = new Validator();
-		Calculator c = new Calculator();
 
 		//Pass Input to validator, get Validated Data and pass it to Calculator
-		ValidatedData valid = v.validateInput(in);
+		ValidatedData valid = Validator.validateInput(in);
 		//return Results and print'em
-		ResultsData r = c.calculate(valid);
+		ResultsData r = Calculator.calculate(valid);
 		displayResults(r);
 	}
 
