@@ -3,12 +3,12 @@
  * and the mask are both valid, suitable for calculator to work on them. It can manage masks in the 
  * form /number or /number.number.number.number
  */
-public class Validator extends BinaryStringManipulator { 
+public final class Validator { 
 
-	public Validator(){
+	private Validator(){
 	}
 
-	public ValidatedData validateInput(InputData in){
+	public static ValidatedData validateInput(InputData in){
 		//Create the data object
 		ValidatedData v = new ValidatedData();
 		//ip is easy, we will check that it has the form of an IP address like this
@@ -23,10 +23,10 @@ public class Validator extends BinaryStringManipulator {
 
 		if(in.getInputMask().length() == 2){ //if its short
 			binaryMask = constructBitMaskFromNumber(Integer.parseInt(in.getInputMask()));
-			longMask = super.getNumericIp(binaryMask);
+			longMask = BinaryUtils.getNumericIp(binaryMask);
 		}else{ //if it's long form
 			longMask = in.getInputMask();
-			binaryMask = super.getBinaryIp(longMask);
+			binaryMask = BinaryUtils.getBinaryIp(longMask);
 		}
 
 		//let's validate the mask
@@ -40,7 +40,7 @@ public class Validator extends BinaryStringManipulator {
 		return v;
 	}
 
-	private boolean validateIpForm(String rawIp){
+	private static boolean validateIpForm(String rawIp){
 		//splits the given ip by the dots
 		String[] octets = rawIp.split("\\.");
 		//check if we have enough octets
@@ -65,7 +65,7 @@ public class Validator extends BinaryStringManipulator {
 		return true;
 	}
 
-	private boolean validateMask(String mask){
+	private static boolean validateMask(String mask){
 		char digit;
 		boolean prevWasZero = false;
 		for(int i = 0; i < mask.length(); i++){
@@ -82,7 +82,7 @@ public class Validator extends BinaryStringManipulator {
 		return true;
 	}
 
-	private String constructBitMaskFromNumber(int num){
+	private static String constructBitMaskFromNumber(int num){
 
 		StringBuilder mask = new StringBuilder(40);
 		if(num > 32 || num < 0){
