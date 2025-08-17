@@ -13,7 +13,7 @@ public final class Calculator {
 		String[] maskOctets = BinaryUtils.getBinaryIp(valid.getValidMask()).split("\\."); 
 		String[] networkOctets = new String[4];
 		String[] broadcastOctets = new String[4];
-		
+
 		//the network address of any IP+mask is networkIP = ip & mask
 		for(int i = 0; i < ipOctets.length; i++){
 			networkOctets[i] = BinaryUtils.bitwiseAndOctets(ipOctets[i], maskOctets[i]);
@@ -35,4 +35,29 @@ public final class Calculator {
 		return r;
 	}
 
+	public static IpPairResult calculateReachability(ResultsData first, ResultsData second){
+
+		//To calculate if two ips can reach each other,
+		//we first see if the first can see the second,
+		boolean firstToSecond = canIpASeeIpB(first, second);
+		//and then if the second can see the first
+		boolean secondToFirst = canIpASeeIpB(second, first);
+
+		IpPairResult pair = new IpPairResult(first,second,firstToSecond,secondToFirst);
+		return pair;
+	}
+
+	private static boolean canIpASeeIpB(ResultsData first, ResultsData second){
+		//To determine if an IP can talk to another, we can think of it as if IP1 looks at IP2 through its own mask. If
+		//applying IP1's mask to IP2 results in the same network that IP1's has, IP1 considers IP2 to be in its same subnet
+		String[] firstMask = first.getBinaryMask().split("\\.");
+		String[] secondIp = second.getBinaryIp().split("\\.");
+		String[] calculatedNet = new String[4];
+		for(int i = 0; i < secondIp.length; i++){
+			calculatedNet[i] = BinaryUtils.bitwiseAndOctets(secondIp[i], firstMask[i]); 
+		}
+		//compare the calculatedNet with the netIp of IP1
+		String calcNet = String.join(".",calculatedNet);
+		return calcNet.equals(first.getBinaryNet());
+	}
 }
